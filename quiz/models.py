@@ -59,8 +59,8 @@ class Response(db.Model):
 
     def to_dict(self):
         return dict(id=self.id,
-                    question=self.question.question,
-                    answer=self.answer.to_dict())
+            question=self.question.question,
+            answer=self.answer.to_dict())
 
 
 class Question(db.Model):

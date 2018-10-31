@@ -8,7 +8,8 @@ setup(
     zip_safe=False,
     install_requires=[
         'flask',
-        'flask_sqlalchemy'
+        'flask_sqlalchemy',
+        'flask_testing'
     ],
 )
 
