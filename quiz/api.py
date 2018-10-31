@@ -1,3 +1,4 @@
+import json
 from flask import Blueprint, jsonify, request
 from hashlib import md5
 
@@ -13,7 +14,7 @@ def get_test(test_id):
 @api.route('/assessment/', methods=('POST',))
 def create_assessment():
     data = request.get_json()
-    user_hash = md5.new()
+    user_hash = md5()
     user_hash.update(json.dumps(data).encode())
     assessment = Assessment(
         fname=data['fname'],
@@ -35,7 +36,7 @@ def create_test():
         for answer in q['answers']:
             answer = Answer(
                 answer=answer['answer'],
-                is_correct=answer['is_correct'])
+                is_correct=answer.get('is_correct'))
             answers.append(answer)
 
         q = Question(
@@ -53,9 +54,9 @@ def create_test():
 @api.route('/response/', methods=('POST',))
 def create_response():
     data = request.get_json()
-    assessment = Assessment.query.get(id=data['assessment'])
-    question = Question.query.get(id=data['question'])
-    answer = Answer.query.get(id=data['answer'])
+    assessment = Assessment.query.get(data['assessment'])
+    question = Question.query.get(data['question'])
+    answer = Answer.query.get(data['answer'])
     test_response = Response(
         assessment=assessment,
         question=question,

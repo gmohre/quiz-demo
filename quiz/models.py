@@ -38,6 +38,7 @@ class Assessment(db.Model):
     responses = db.relationship('Response', backref='assessment', lazy=False)
     start_time = db.Column(db.DateTime, default=datetime.datetime.utcnow())
     test_id = db.Column(db.Integer, db.ForeignKey('test.id'))
+    user_hash = db.Column(db.Text)
 
     def to_dict(self):
         return dict(id=self.id,
