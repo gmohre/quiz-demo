@@ -16,12 +16,14 @@ class Test(db.Model):
         backref=db.backref('tests', lazy=True))
     assessments = db.relationship('Assessment', backref='test', lazy=True)
     duration = db.Column(db.Integer)
+    message = db.Column(db.Text)
 
     def to_dict(self):
         return dict(
             id=self.id,
             duration=self.duration,
             name=self.name,
+            message=self.message,
             questions=[question.to_dict() for question in self.questions])
 
 

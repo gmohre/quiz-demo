@@ -11,6 +11,10 @@ def get_test(test_id):
     test = Test.query.get(test_id)
     return jsonify(test.to_dict())
 
+@api.route('/assessment/<string:user_hash>/', methods=('POST',))
+def continue_assessment(user_hash):
+    return Assessment.query.get(user_hash=user_hash)
+
 @api.route('/assessment/', methods=('POST',))
 def create_assessment():
     data = request.get_json()
@@ -64,3 +68,4 @@ def create_response():
     db.session.add(test_response)
     db.session.commit()
     return jsonify(test_response.to_dict()), 201
+
